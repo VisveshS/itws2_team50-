@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--<meta charset="utf-8">-->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- visit : https://www.w3schools.com/icons/icons_reference.asp -->
+    <meta name="viewport" content="width=device-width,height=device-height initial-scale=1">
+    <title>
+      {% if name %}
+      {{name}} 's account
+      {% else %}
+      you don't have a name :(
+      {% endif %}
+    </title>
+  </head>
+  <body background={{url_for('static',filename='loggedin.jpga')}}>
+  <div id="top-header">
+    <!-- <div class='x'> -->
+        <a href="#"><button class="nav fa fa-home" style="text-align:center"></button></a>
+        <!-- <div class="dropdown-content">
+          <a href="#1">A</a><a href="#2">B</a>
+        </div>
+    </div> -->
+    <div class='y'>
+        <a href="/my playlists/static/mod/my" class="no_"><button class="nav y1 ">My playlists</button></a>
+    </div>
+    <div class='z'>
+        <a href="/my playlists/static/mod/,"><button class="nav z1 ">Following</button></a>
+        <!-- <div class="dropdown-content">
+        <div class="aa">
+          <a href="#1">A</a><a href="#2">B</a>
+        </div>
+      </div> -->
+    </div>
+    <div class='zz'>
+        <a href="#"><button class="nav zz1">{{songname}}</button></a>
+        <div class="dropdown-content">
+          <div class="aa">
+              private:
+              <br>
+            <a href="/+or-/private+/0/{{nameId}}/{{name}}"><zz class="fa fa-plus-square green whitebg"></zz></a>
+            <a href="/+or-/private-/0/{{nameId}}/{{name}}"><zz class="fa fa-minus-square red whitebg"></zz></a>
+          </div>
+        <div class="pub">
+          <div class="aa">
+              <div class="publ">  public    <span class="fa fa-angle-double-right"></span></div>
+          </div>
+              <div class="dropdown-content2">
+                {% for P in pub %}
+                <div class="aaa">
+                  {{P}}
+                  <br>
+                  <a href="+or-/public+/{{P}}/{{nameId}}/{{name}}"><zz class="fa fa-plus-square green whitebg"></zz></a>
+                  <a href="+or-/public-/{{P}}/{{nameId}}/{{name}}"><zz class="fa fa-minus-square red whitebg"></zz></a>
+                </div>
+                {% endfor %}
+              </div>
+        </div>
+        </div>
+    </div>
+    <div class='rightt'>
+    <div class="h3h" style="color:green"><text>logged in as</text><text style=color:#aaaaff> {{name}}</text></div><br>
+      <a href="/prelogin" style="text-decoration:none"><text class='h3h' id="hvrw">logout</text></a>
+    </div>
+  </div>
+    <!-- <img src="/static/Flask.sh-600x600.png" width="20%" height="20%"> -->
+    <!-- <h1>{{songindex}}</h1> -->
+    <div id='activ'>
+      <h2><em>Now Playing : </em><text style="color:#ffff44">{{songname}}</text></h2>
+      <img src={{image}} class="displaysmall"><br>
+      <audio controls>
+        <source src="{{song}}" type="audio/mpeg"/>
+      </audio>
+      <br>
+      {% if ad %}
+      <text class="green1 fadeout">{{songname}} added to {{ad}} playlist</text>
+      {% endif %}
+      {% if rem %}
+      <text class="fadeout red">{{songname}} removed from {{rem}} playlist</text>
+      {% endif %}
+      <br>
+    </div>
+    <div class="container">
+    {% for song in table %}
+    <!-- {{song[0][0]}}{{song[0][1]}}         {{song[0][2]}}<br> -->
+    <a href="/{{song[0][1]}}">
+      <div class='mw'>
+        <img src={{song[0][2]}} class="small"><br>
+        <text>{{song[0][1]}}</text>
+    </div>
+  </a>
+    {% endfor %}
+  </div>
+  <div id="footer">
+  </div>
+    </body>
+</html>

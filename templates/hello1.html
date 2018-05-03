@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--<meta charset="utf-8">-->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- visit : https://www.w3schools.com/icons/icons_reference.asp -->
+    <meta name="viewport" content="width=device-width,height=device-height initial-scale=1">
+    <title>
+      {% if name %}
+      {{name}} 's account
+      {% endif %}
+    </title>
+  </head>
+  <div id="top-header">
+    <!-- <div class='x'> -->
+        <a href="/Tu Jaane Na"><button class="nav fa fa-home" style="text-align:center"></button></a>
+        <div class="y"><a href="/my playlists/static/mod/home"><button class="nav x">My playlists</button></a></div>
+        <!-- <div class="dropdown-content">
+          <a href="#1">A</a><a href="#2">B</a>
+        </div>
+    </div> -->
+    <div class='y'>
+        <a href="/my playlists/static/mod/,"><button class="nav y1">Following</button></a>
+    </div>
+    <div class="notifications">
+    </div>
+    <div class='rightt'>
+    <div class="h3h" style="color:green"><text>logged in as</text><text style=color:#aaaaff> {{namefix}}</text></div><br>
+      <a href="/prelogin" style="text-decoration:none"><text class='h3h' id="hvrw">logout</text></a>
+    </div>
+  </div>
+  <body background={{url_for('static',filename='loggedin.jpga')}} class="b1">
+    <h1>{{songindex}}</h1>
+    <div class="container2">
+    {% if flag %}
+    <div class="foreign">
+      <div class="following">
+        <b style="color:black"><em>FOLLOWING</em></b>
+        {% for foll in followingusers %}
+        <div class="alluser1" style="color:blue">
+          {{foll[0]}}
+          <a href="/my playlists/follow/{{foll[0]}}/{{songggg}}/-" style="background-color:red;color:black;font-size:12px;text-decoration:none">unfollow</a>
+          <a href="/my playlists/static/mod/{{foll[0]}}" style="background-color:blue;color:white;font-size:12px;text-decoration:none"><em>view</em></a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="followers">
+        <b style="color:black"><em>FOLLOWED BY</em></b>
+        {% for fol in allfol %}
+        <ol>{{fol}}</ol>
+        {% endfor %}
+      </div>
+      <div class="allnsearch">
+        <b style="color:white">ALL USERS</b>
+        {% for user in alluser %}
+        <div class="alluser">
+          {{user[0]}}
+          <a href="/my playlists/follow/{{user[0]}}/{{songggg}}/+" style="background-color:green;color:white;font-size:12px;text-decoration:none">follow</a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="notifications"><span class="fa fa-bell" style="font-size:40px;">notifications:<a href="/clear" style="text-decoration:none;font-size:14px;">clear</a></span><br>
+        {% for update in notifications%}
+        <div style="opacity:0.6"><ol>{{update}}<ol></div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="container1">
+    <div class='addclass'>
+    <form method="post">
+         <input type="text" placeholder="playlist name" name="playlist_name"><br>
+         <input class="submitt" type="submit" value="create playlist">
+         <br>
+    </div>
+    <div class='remclass'>
+       <input type="text" placeholder="playlist name" name="tobedel"><br>
+       <input class="submitt" type="submit" value="remove playlist"><br>
+    </div>
+  </form>
+</div>
+{% endif %}
+<div class="viewclass">
+  <div style="background-color:#ff9832;">
+    {% if douu %}
+  <img src="{{douu[0][1]}}" class="tinyimg"><br><span>{{douu[0][0]}}</span>
+  {% endif %}
+  <audio controls>
+    <source src="/static/{{songggg}}" type="audio/mpeg"/>
+  </audio>
+</div>
+<div style="hover:left">
+{% if flag %}
+{% else %}
+<em style="color:#0000aa;font-size:20px;float:left;padding-right:10px">MY PRIVATE PLAYLIST:</em><br>
+<div class="playdis1" style="background-color:#96936f">
+{% for ps1 in ps %}
+<a href="/my playlists{{ps1[0][1]}}/home">
+<div class="sbo" style="background-color:green width:100%"><img src="{{ps1[0][2]}}" class="tinyimg"><br>{{ps1[0][0]}}</div>
+</a>
+{% endfor %}
+</div>
+{% endif %}
+<em style="color:#0000aa;font-size:20px;float:left;padding-right:10px">{% if flagi %}{% if flag %}{{name}}'s {% else %}MY {% endif %}{% endif %} PUBLIC PLAYLISTS:</em>
+{% if flagi %}
+{% if display %}
+  {% for song in display %}
+  <div class="playdis">
+    <text style="color:#aa0000;font-size:20px;float:left;padding-right:100%">{{song[0][0]}}:</text>
+    <!-- {{song[1]}} -->
+  <div class="playdis1" style="background-color:#96ffff">
+  {% for S in song[1] %}
+        {% if flag %}
+        <a href="/my playlists{{S[1]}}/{{name}}">
+        {% else %}
+        <a href="/my playlists{{S[1]}}/home">
+        {% endif %}
+          <div class="sbo"><img src="{{S[2]}}" class="tinyimg"><text>{{S[0]}}</text></div>
+        </a>
+  {% endfor %}
+  <br><br>
+  </div>
+</div>
+  {% endfor %}
+{% else %}
+<text style="font-size:30px"><b>NO PUBLIC PLAYLIST</b></text>
+{% endif %}
+{% else %}
+  <text style="opacity:0.3">view public playlists of those you follow</text>
+{% endif %}
+  </div>
+</div>
+    </body>
+</html>

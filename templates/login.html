@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>login page</title>
+    <meta name="viewport" content="width=device-width,height=device-height initial-scale=1">
+    <style>
+      .container{
+        text-align: center;
+        vertical-align: middle;
+        /* padding-left: 30%; */
+      }
+      .fr{
+        color: red;
+        font-style: italic;
+        font-size: 12px;
+      }
+      .container{
+        background: radial-gradient(circle, white, #bbbbff, #4444ff);
+        opacity: 1;
+        /* border-width: 0.1px;
+        border :2px solid blue; */
+        max-width: 300px;
+        max-height: 700px;
+        margin-top: 10%;
+        margin-left: 40%;
+      }
+      .boxx{
+        margin: 50px;
+      }
+      .submitt{
+        background: radial-gradient(circle,cyan,#000088);
+        color: #000000;
+        border-radius: 100%;
+        padding: 15px;
+        margin: 20px;
+      }
+      .submitt:hover{
+        background: radial-gradient(circle,cyan,#ffffff);
+        color: #4444cc;
+      }
+      .b{
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity=0.6;
+      }
+      .login{
+        color: #000088;
+      }
+    </style>
+    </head>
+  <body class='b' background="{{ url_for('static',filename='loginbg.jpg') }}">
+    <div class="container">
+      <div class="boxx">
+        <h1 class="login">Login</h1>
+        <br>
+        <form method="post">
+          <input type="text" placeholder="Username" name="username" value={{request.form.username}}><br>
+          {% if uempty%}
+          <text class="fr">
+            username field is mandatory
+          </text>
+          <br>
+          {% endif %}
+           <br><input type="password" placeholder="Password" name="password" style="width=100%"><br>
+           {% if pempty%}
+           <text class="fr">
+             password field is mandatory
+           </text><br>
+           {% endif %}
+           <a href="/register" style="text-decoration:none;font-size:12px;color:black;float:bottom">not registered?</a>
+          <br><br><input class="submitt" type="submit" value="Login"><br>
+        </form>
+        {% if error %}
+          {% if error == 'log in successful'%}
+            <p class="error" style=color:green><strong>{{ error }}</strong>
+          {% else %}
+              <p class="error" style=color:red><strong>{{ error }}</strong>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
